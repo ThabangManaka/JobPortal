@@ -15,7 +15,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseMySql(
+          builder.Configuration.GetConnectionString("DefaultConnection"),
+          ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")),
+          b => b.MigrationsAssembly("Backend")
+      );
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
