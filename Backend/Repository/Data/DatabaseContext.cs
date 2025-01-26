@@ -20,5 +20,6 @@ namespace Repository.Data
         public DbSet<Qualifications> Qualifications { get; set; }
         public DbSet<ExperienceYears> ExperienceYears { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
+        public DbSet<JobPosts> JobPosts { get; set; }
     }
 }
