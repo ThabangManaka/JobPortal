@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Users
+    public class RegisterAdmin
     {
         [Key]
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Contactno { get; set; }
-        [Required]
-        public byte[] Password { get; set; }
 
-        public byte[] PasswordKey { get; set; }
+        public string Position { get; set; }
+        [Required]
+        public string Password { get; set; }
+
+      //  public byte[] PasswordKey { get; set; }
 
         public DateTime? CreatedDate { get; set; }
         public bool Status { get; set; }
