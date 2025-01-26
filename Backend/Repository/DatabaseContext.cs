@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.Data
+namespace Repository
 {
     public class DatabaseContext : IdentityDbContext<IdentityUser>
     {
