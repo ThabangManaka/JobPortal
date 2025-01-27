@@ -20,7 +20,7 @@ namespace Backend.Controllers
             this.uow = uow;
             this.mapper = mapper;
         }
-
+        [HttpPost("CreateJobPost")]
         public async Task<IActionResult> CreateJobPost([FromBody] JobPostsDto jobPostsDto)
         {
             if (!ModelState.IsValid)
@@ -33,9 +33,6 @@ namespace Backend.Controllers
              uow.JobPostRepository.AddJobPost(jobPost);
             await  uow.SaveAsync(); 
             return Ok(201);
-
-
-
 
         }
 
