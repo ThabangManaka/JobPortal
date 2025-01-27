@@ -21,5 +21,6 @@ namespace Repository
         public DbSet<ExperienceYears> ExperienceYears { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<JobPosts> JobPosts { get; set; }
+        public DbSet<Users> Users { get; set; }
     }
 }
