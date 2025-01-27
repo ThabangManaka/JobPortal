@@ -10,6 +10,8 @@ namespace Backend.Helpers
 
 
             CreateMap<JobPosts, JobPostsDto>().ReverseMap();
+
+            CreateMap<Users, UsersDto>().ReverseMap();
         } 
     }
 }

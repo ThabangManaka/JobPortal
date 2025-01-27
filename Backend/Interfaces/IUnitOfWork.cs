@@ -6,5 +6,6 @@
 
         Task<bool> SaveAsync();
         IJobPostRepository JobPostRepository { get; }   
+        IUserRepository UserRepository { get; } 
     }
 }

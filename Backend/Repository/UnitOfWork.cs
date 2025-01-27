@@ -21,6 +21,7 @@ namespace Repository
 
 
         public IJobPostRepository JobPostRepository => new JobPostRepository(_context);
+        public IUserRepository UserRepository => new UserRepository(_context);
 
         public  async Task<bool> SaveAsync()
         {
