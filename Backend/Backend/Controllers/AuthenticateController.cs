@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 using System.Text;
 
 namespace Backend.Controllers
@@ -22,11 +23,12 @@ namespace Backend.Controllers
         private readonly IMapper mapper;
         private readonly AppSettings _appSettings;
 
-        public AuthenticateController(IUnitOfWork uow, IMapper mapper, IOptions<AppSettings> appSettings)
+        public AuthenticateController(IUnitOfWork uow, IMapper mapper, IConfiguration configuration, IOptions<AppSettings> appSettings)
         {
-
+            this.configuration = configuration;
             this.uow = uow;
             this.mapper = mapper;
+            _appSettings = appSettings.Value;
 
         }
         [HttpPost("Login")]

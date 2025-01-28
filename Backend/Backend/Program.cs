@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using System.Text;
 using Interfaces;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+IConfiguration Configuration;
+Configuration = builder.Configuration;
+
+builder.Services.AddSingleton<IConfiguration>(Configuration);
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseMySql(
@@ -24,6 +29,10 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
           b => b.MigrationsAssembly("Backend")
       );
 });
+
+var appSettingsSection = builder.Configuration.GetSection("AppSettings");
+builder.Services.Configure<AppSettings>(appSettingsSection);
+var appSettings = appSettingsSection.Get<AppSettings>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {

@@ -31,6 +31,9 @@ namespace Repository.Data
              
                 using (var hmac = new HMACSHA512())
                 {
+
+                    user.PasswordSalt = hmac.Key;
+
                     // Hash the password
                     user.Password = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password)));
                 }
@@ -72,29 +75,25 @@ namespace Repository.Data
                 return null;
             }
 
-            // Check if the password matches
-            if (!VerifyPasswordHash(passwordText, user.Password))
+            // Validate the password
+            if (!VerifyPasswordHash(passwordText, user.Password, user.PasswordSalt))
                 return null;
 
             return user;
         }
-        private bool VerifyPasswordHash(string passwordText, string storedPassword)
+        private bool VerifyPasswordHash(string passwordText, string storedPassword, byte[] storedSalt)
         {
-            // Convert the stored Base64-encoded password back to a byte array
-            var storedPasswordBytes = Convert.FromBase64String(storedPassword);
-
-            using (var hmac = new HMACSHA512()) // Initialize HMACSHA512
+            using (var hmac = new HMACSHA512(storedSalt))
             {
-                // Hash the input password text
+                // Hash the provided password with the stored salt
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordText));
 
-                // Compare each byte of the computed hash with the stored hash
-                if (computedHash.Length != storedPasswordBytes.Length)
-                    return false;
+                // Compare the computed hash with the stored hash
+                var storedHashBytes = Convert.FromBase64String(storedPassword);
 
                 for (int i = 0; i < computedHash.Length; i++)
                 {
-                    if (computedHash[i] != storedPasswordBytes[i])
+                    if (computedHash[i] != storedHashBytes[i])
                         return false;
                 }
             }
