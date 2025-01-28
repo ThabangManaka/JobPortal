@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Repository.Data
 {
-    public class ApplicantDetailRepository : IApplicantDetailRepository
+    public class ApplicantRepository : IApplicantRepository
     {
         private readonly DatabaseContext _context;
 
-        public ApplicantDetailRepository(DatabaseContext context)
+        public ApplicantRepository(DatabaseContext context)
         {
             _context = context;
         }

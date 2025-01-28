@@ -23,6 +23,7 @@ namespace Repository
         public IJobPostRepository JobPostRepository => new JobPostRepository(_context);
         public IUserRepository UserRepository => new UserRepository(_context);
 
+        public IApplicantRepository ApplicantRepository => new ApplicantRepository(_context);
         public  async Task<bool> SaveAsync()
         {
           return  await _context.SaveChangesAsync()  > 0;  

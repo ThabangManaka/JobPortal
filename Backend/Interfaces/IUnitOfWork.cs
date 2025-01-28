@@ -6,6 +6,7 @@
 
         Task<bool> SaveAsync();
         IJobPostRepository JobPostRepository { get; }   
-        IUserRepository UserRepository { get; } 
-    }
+        IUserRepository UserRepository { get; }
+        IApplicantRepository ApplicantRepository { get; } 
+}
 }

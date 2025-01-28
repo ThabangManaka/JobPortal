@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    public interface IApplicantDetailRepository
+    public interface IApplicantRepository
     {
         bool AddApplicantDetail(ApplicantDetail applicantDetail);
         List<ApplicantDetail> GetAllApplicantDetail();
