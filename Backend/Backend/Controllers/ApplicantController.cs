@@ -34,5 +34,11 @@ namespace Backend.Controllers
             return Ok(201);
 
         }
+
+        [HttpGet("GetAll")]
+        public List<ApplicantDetail> GetAll()
+        {
+            return uow.ApplicantRepository.GetAllApplicantDetail();
+        }
     }
 }

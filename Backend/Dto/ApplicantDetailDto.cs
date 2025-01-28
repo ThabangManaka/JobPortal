@@ -18,12 +18,8 @@ namespace Dto
         public string PreviousCompany { get; set; }
         public DateTime? PeriodFrom { get; set; }
         public DateTime? PeriodTo { get; set; }
-        public int PostID { get; set; }
-        [ForeignKey("PostID")]
-        public JobPosts JobPosts { get; set; }
+        public int PostID { get; set; }   
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
-        public Users Users { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
     }

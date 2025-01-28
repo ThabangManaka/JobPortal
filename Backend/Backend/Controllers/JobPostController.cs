@@ -36,6 +36,12 @@ namespace Backend.Controllers
 
         }
 
-    
+
+        [HttpGet("GetAll")]
+        public List<JobPosts> GetAll()
+        {
+           return uow.JobPostRepository.GetAllJobPost();
+        }
+
     }
 }
