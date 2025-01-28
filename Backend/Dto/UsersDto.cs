@@ -25,7 +25,6 @@ namespace Dto
         public DateTime DateModified { get; set; }
 
         public int ProvinceID { get; set; }
-        [ForeignKey("ProvinceID")]
-        public Provinces Province { get; set; }
+
     }
 }

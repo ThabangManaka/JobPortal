@@ -6,6 +6,8 @@ using Models;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
 
@@ -17,6 +19,8 @@ namespace Backend.Controllers
             this.uow = uow;
             this.mapper = mapper;
         }
+
+        [HttpPost("Registers")]
         public async Task<ActionResult> Registers([FromBody] UsersDto usersDto)
         {
 

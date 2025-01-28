@@ -24,7 +24,7 @@ namespace Models
         public string CVFilePath { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-
+        public int ProvinceID { get; set; }
         [ForeignKey("ProvinceID")]
         public Provinces Province { get; set; }
 
