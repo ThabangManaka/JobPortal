@@ -22,5 +22,6 @@ namespace Repository
         public DbSet<Provinces> Provinces { get; set; }
         public DbSet<JobPosts> JobPosts { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<ApplicantDetail> ApplicantDetails { get; set; }
     }
 }
