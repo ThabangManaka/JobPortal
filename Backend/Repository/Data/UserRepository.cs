@@ -73,29 +73,28 @@ namespace Repository.Data
             }
 
             // Check if the password matches
-            if (!MatchPasswordHash(passwordText, user.Password))
-            {
-                Console.WriteLine("Invalid password.");
+            if (!VerifyPasswordHash(passwordText, user.Password))
                 return null;
-            }
 
             return user;
         }
-
-        private bool MatchPasswordHash(string passwordText, string storedPassword)
+        private bool VerifyPasswordHash(string passwordText, string storedPassword)
         {
-            // Convert the stored Base64 password back to bytes
+            // Convert the stored Base64-encoded password back to a byte array
             var storedPasswordBytes = Convert.FromBase64String(storedPassword);
 
-            using (var hmac = new HMACSHA512())
+            using (var hmac = new HMACSHA512()) // Initialize HMACSHA512
             {
-                // Compute the hash of the provided password
-                var passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordText));
+                // Hash the input password text
+                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordText));
 
-                // Compare the computed hash with the stored hash
-                for (int i = 0; i < passwordHash.Length; i++)
+                // Compare each byte of the computed hash with the stored hash
+                if (computedHash.Length != storedPasswordBytes.Length)
+                    return false;
+
+                for (int i = 0; i < computedHash.Length; i++)
                 {
-                    if (passwordHash[i] != storedPasswordBytes[i])
+                    if (computedHash[i] != storedPasswordBytes[i])
                         return false;
                 }
             }

@@ -50,7 +50,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> Login([FromBody] LoginReqDto model)
         {
 
-            var user  = await _userManager.FindByNameAsync(model.UserName);
+            var user  = await _userManager.FindByNameAsync(model.Username);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password)) { 
             
                 var userRoles  = await _userManager.GetRolesAsync(user);

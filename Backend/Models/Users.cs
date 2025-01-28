@@ -15,6 +15,8 @@ namespace Models
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public byte[] PasswordSalt { get; set; }
         public string IDNumber { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
