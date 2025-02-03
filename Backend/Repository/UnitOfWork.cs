@@ -1,4 +1,4 @@
-﻿using Interfaces;
+using Interfaces;
 using Repository.Data;
 using System;
 using System.Collections.Generic;
@@ -24,6 +24,8 @@ namespace Repository
         public IUserRepository UserRepository => new UserRepository(_context);
 
         public IApplicantRepository ApplicantRepository => new ApplicantRepository(_context);
+
+        public ILookupRepository LookupRepository => new LookupRepository(_context);
         public  async Task<bool> SaveAsync()
         {
           return  await _context.SaveChangesAsync()  > 0;  

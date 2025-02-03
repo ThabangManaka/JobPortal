@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Dto;
 using Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,5 +34,22 @@ namespace Backend.Controllers
             return Ok(201);
 
         }
+
+    [HttpPost("GetUserById/{id}")]
+    public async  Task<Users> GetUserById(int id)
+        {
+
+            try
+            {
+
+              return uow.UserRepository.GetUsersbyId(id);
+            }
+            catch (Exception)
+            {
+              throw;
+            }
+
+    } 
+
     }
 }

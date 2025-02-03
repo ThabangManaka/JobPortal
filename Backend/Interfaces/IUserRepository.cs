@@ -1,4 +1,4 @@
-﻿using Dto;
+using Dto;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace Interfaces
         Task<Users> Authenticate(string userName, string passwordText);
         bool CheckUsersExits(string username);
         public LoginResDto GetUserDetailsbyCredentials(string username);
-        void Register(Users user);
+    Users GetUsersbyId(int userId);
+    void Register(Users user);
     }
 }

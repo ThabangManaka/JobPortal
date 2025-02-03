@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
@@ -23,5 +23,7 @@ namespace Repository
         public DbSet<JobPosts> JobPosts { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<ApplicantDetail> ApplicantDetails { get; set; }
-    }
+
+
+  }
 }

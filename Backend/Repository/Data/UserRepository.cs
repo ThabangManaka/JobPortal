@@ -1,4 +1,4 @@
-﻿using Dto;
+using Dto;
 using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
@@ -23,7 +23,7 @@ namespace Repository.Data
 
 
 
-        public void Register(Users user)
+     public void Register(Users user)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Repository.Data
             }
           }
 
-        public bool CheckUsersExits(string username)
+     public bool CheckUsersExits(string username)
         {
             var result = (from user in _context.Users
                           where user.Username == username
@@ -63,8 +63,7 @@ namespace Repository.Data
             return result > 0 ? true : false;
         }
 
-
-        public async Task<Users> Authenticate(string userName, string passwordText)
+    public async Task<Users> Authenticate(string userName, string passwordText)
         {
             // Fetch the user from the database
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == userName);
@@ -81,26 +80,42 @@ namespace Repository.Data
 
             return user;
         }
-        private bool VerifyPasswordHash(string passwordText, string storedPassword, byte[] storedSalt)
+    private bool VerifyPasswordHash(string passwordText, string storedPassword, byte[] storedSalt)
+    {
+      // Ensure that the stored password and salt are not null or empty
+      if (string.IsNullOrEmpty(storedPassword) || storedSalt == null || storedSalt.Length == 0)
+      {
+        return false;
+      }
+
+      using (var hmac = new HMACSHA512(storedSalt))
+      {
+        // Hash the provided password with the stored salt
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordText));
+
+        // Convert the stored password hash (Base64) to a byte array
+        var storedHashBytes = Convert.FromBase64String(storedPassword);
+
+        // If the lengths of the hashes don't match, they are not equal
+        if (computedHash.Length != storedHashBytes.Length)
         {
-            using (var hmac = new HMACSHA512(storedSalt))
-            {
-                // Hash the provided password with the stored salt
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(passwordText));
-
-                // Compare the computed hash with the stored hash
-                var storedHashBytes = Convert.FromBase64String(storedPassword);
-
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != storedHashBytes[i])
-                        return false;
-                }
-            }
-
-            return true;
+          return false;
         }
-        public LoginResDto GetUserDetailsbyCredentials(string username)
+
+        // Compare the computed hash with the stored hash byte by byte
+        for (int i = 0; i < computedHash.Length; i++)
+        {
+          if (computedHash[i] != storedHashBytes[i])
+          {
+            return false; // Return false if any byte doesn't match
+          }
+        }
+      }
+
+      // If no mismatches were found, return true
+      return true;
+    }
+    public LoginResDto GetUserDetailsbyCredentials(string username)
         {
             try
             {
@@ -121,7 +136,16 @@ namespace Repository.Data
                 throw;
             }
         }
+
+    public Users GetUsersbyId(int userId)
+    {
+      var result = (from user in _context.Users
+                    where user.UserId == userId
+                    select user).FirstOrDefault();
+
+      return result;
     }
+  }
       
     }
 
